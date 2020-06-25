@@ -41,18 +41,13 @@ const AnecdoteList = (props) => {
     setTimeout(() => dispatch(displayNotification({})), 3000)
   }
 
-    const handleFilterChange = (e) => {
+  const handleFilterChange = (e) => {
     e.preventDefault()
     const filterTerm = e.target.filter.value
-console.log('filter input - AnecdoteList', filterTerm)
+    console.log('filter input - AnecdoteList', filterTerm)
     dispatch(filterItems(filterTerm))
     e.target.filter.value = ''
-  } 
-  
-  const handleFilterSubmit = () => {
-    
   }
- 
 
   const handleReset = () => {
     return (filteredAnecdotes = anecdotes)
@@ -61,17 +56,14 @@ console.log('filter input - AnecdoteList', filterTerm)
   return (
     <div>
       <h2>Anecdotes</h2>
-            <form onSubmit={handleFilterSubmit}>
-        Filter:
-        <input name="filter" onChange={handleFilterChange} />
+      <form onSubmit={handleFilterChange}>
+        Filter on 'submit':
+        <input name="filter" />
         <button type="submit">search</button>
         <button onClick={handleReset}>reset</button>
       </form>
       <hr />
-      Filter:
-      {/*   {filter2()}{' '} */}
-      <Filter onSubmit={filteredAnecdotes} onClick={handleReset} />
-      <ul>
+     <ul>
         {sortedAnecdotes.map((a) => (
           <Anecdote key={a.id} a={a} onClick={() => handleVote(a.id)} />
         ))}

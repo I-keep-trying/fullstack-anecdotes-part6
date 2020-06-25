@@ -1,32 +1,23 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import filterItems from '../actions/filterActions'
 
-const Filter = ({ onSubmit, onClick }) => {
+const Filter = () => {
+  const [state, setState] = useState('')
   const dispatch = useDispatch()
 
-  const anecdotes = useSelector((state) => state.anecdotes)
-
-  const filterState = useSelector((state) => state.filter.payload)
-
-  /*   let filteredAnecdotes =
-    filterState === undefined
-      ? anecdotes
-      : anecdotes.filter((a) => {
-          return a.content.toLowerCase().includes(filterState.toLowerCase())
-        })
- */
   const handleChange = (e) => {
     e.preventDefault()
-    const filterTerm = e.target.filter2.value
-    console.log('Filter.js input', filterTerm)
-    dispatch(filterItems(filterTerm))
-    e.target.filter2.value = ''
+    const filterTerm = e.target.value
+    console.log('filter onchange', filterTerm)
+    setState(filterTerm)
   }
 
-  /*   const handleReset = () => {
-    return (filteredAnecdotes = anecdotes)
-  } */
+  dispatch(filterItems(state))
+
+  const reset = () => {
+    setState('')
+  }
 
   const style = {
     marginBottom: 10,
@@ -34,11 +25,10 @@ const Filter = ({ onSubmit, onClick }) => {
 
   return (
     <div style={style}>
-      filter
-      <form onSubmit={handleChange}>
-        <input name="filter2" />
-        <button type="submit">search</button>
-        <button onClick={onClick}>reset</button>
+      Responsive Filter:
+      <form>
+        <input onChange={handleChange} />
+        <button onClick={reset}>reset</button>
       </form>
     </div>
   )

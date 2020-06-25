@@ -30,10 +30,6 @@ const asObject = (anecdote) => {
 
 const initialStateAnecdotes = anecdotesAtStart.map(asObject)
 
-/* const initialStateNotifications = {
-  message: 'Something is happening',
-  status: 'ok',
-} */
 const initialStateNotifications = {}
 
 const initialStates = {
